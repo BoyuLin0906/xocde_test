@@ -50,7 +50,7 @@ class RegisterStepOneViewController: UIViewController {
     }
     func info(Email: String , Password: String){
         
-        let request = NSMutableURLRequest(url : NSURL(string: "http://10.133.200.109/GetUserInformation.php")! as URL)
+        let request = NSMutableURLRequest(url : NSURL(string: "http://120.126.145.118/PM/GetUserInformation.php")! as URL)
         request.httpMethod = "POST"
         
         //let postString = "IOS_user=\(Email!)&IOS_userpw=\(Password!)"

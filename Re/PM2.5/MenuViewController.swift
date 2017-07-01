@@ -29,7 +29,7 @@ class MenuViewController: UIViewController  {
     @IBOutlet weak var WeightLabel: UILabel!
     
     
-    @IBOutlet weak var UserImg: UIImageView!
+    
     @IBOutlet weak var NameLabel: UILabel!
     @IBOutlet weak var EmailLabel: UILabel!
     
@@ -44,10 +44,7 @@ class MenuViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         //個人圖片
-        self.UserImg.layer.cornerRadius = UserImg.frame.size.width/2
-        self.UserImg.clipsToBounds = true
-        self.UserImg.layer.borderColor = UIColor.white.cgColor
-        self.UserImg.layer.borderWidth = 3
+        
         //profie
         self.underbackground.layer.cornerRadius = 10
         self.underbackground.clipsToBounds = true
@@ -103,7 +100,7 @@ class MenuViewController: UIViewController  {
             
         self.NameLabel.text = String(describing: userName)
         self.EmailLabel.text = String(describing: userEmail)
-        self.UserImg.image = UIImage(named: "person")
+        
         }
     }
 

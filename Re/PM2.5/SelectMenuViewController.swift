@@ -140,14 +140,85 @@ class SelectMenuViewController: UIViewController , CLLocationManagerDelegate {
         avgSpeedLabel.text = "\(avgspeed) 公里/時"
         KcalLabel.text = "\(cal) 卡路里"
     }
-
+    // stop the timer
     @IBAction func StopButton(_ sender: Any) {
         timer.invalidate()
         GPStimer.invalidate()
         timerIsOn = false
 
     }
+    // init the all things
+    @IBAction func clearButton(_ sender: Any) {
+        // time
+        
+        if (!timerIsOn){
+        seconds = 0
+        all_seconds = 0
+        minutes = 0
+        hours = 0
+        // distance
+        distance = 0
+        countPosition = 0
+        //Label
+        timeLabel.text = "0 時 0 分 0 秒"
+        avgSpeedLabel.text = "0 公里/時"
+        KcalLabel.text = "0 卡路里"
+        distanceLabel.text = "0 公里"
+            
+        }
+        
+    }
+    
+    
+    @IBAction func recodingButton(_ sender: Any) {
+        
+        if(!timerIsOn){
+            
+            let userEmail = UserDefaults.standard.value(forKey: "UserEmail")!
+            let avgspeed =  distance / (all_seconds / 3600)
+            let userWeight = UserDefaults.standard.value(forKey: "UserWeight")!
+            let weight = Double(String(describing: userWeight))
+            let cal =  (weight! * distance * 1.036)
 
+            
+            
+            let request = NSMutableURLRequest(url : NSURL(string: "http://120.126.145.118/PM/sport_record.php")! as URL)
+            request.httpMethod = "POST"
+            
+            //let postString = "IOS_user=\(Email!)&IOS_userpw=\(Password!)"
+            let postString = "Email=\(userEmail)&Time=\(all_seconds)&distance=\(distance)&speed=\(avgspeed)&cal=\(cal)"
+            
+            request.httpBody = postString.data(using: String.Encoding.utf8)
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data , response , error in
+                
+                if error != nil{
+                    print("error=\(String(describing: error))")
+                }
+                print("response =\(String(describing: response))")
+                
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                print("responseString = \(String(describing: responseString))")
+                
+                DispatchQueue.main.async(){
+                    let Alert: UIAlertController = UIAlertController(title: "紀錄", message: "紀錄成功" , preferredStyle: .alert)
+                    let action = UIAlertAction(title: "確認", style: UIAlertActionStyle.default,handler: {action in print("OK")})
+                    Alert.addAction(action)
+                    self.present(Alert , animated: true, completion: nil)
+                }
+                
+                
+            }
+            task.resume()
+
+        }
+        
+ 
+
+        
+        
+    }
+    
     @IBAction func Persionality(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

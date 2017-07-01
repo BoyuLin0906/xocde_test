@@ -93,7 +93,7 @@ class RegisterSecond: UIViewController , UIPickerViewDelegate, UIPickerViewDataS
         let Email = String(describing: UserDefaults.standard.value(forKey: "NewUserName")!)
         let Password = String( describing: UserDefaults.standard.value(forKey: "NewUserPassword")!)
         
-        let request = NSMutableURLRequest(url : NSURL(string: "http://10.133.200.109/RegisterSubmit.php")! as URL)
+        let request = NSMutableURLRequest(url : NSURL(string: "http://120.126.145.118/PM/RegisterSubmit.php")! as URL)
         request.httpMethod = "POST"
         
         //let postString = "IOS_user=\(Email!)&IOS_userpw=\(Password!)"

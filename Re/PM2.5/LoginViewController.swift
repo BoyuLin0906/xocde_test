@@ -72,7 +72,7 @@ class LoginViewController: UIViewController , UITextFieldDelegate {
     // 判斷登陸是否成功
     func info(Email: String , Password: String){
         
-        let request = NSMutableURLRequest(url : NSURL(string: "http://10.133.200.109/info.php")! as URL)
+        let request = NSMutableURLRequest(url : NSURL(string: "http://120.126.145.118/PM/info.php")! as URL)
         request.httpMethod = "POST"
         
         //let postString = "IOS_user=\(Email!)&IOS_userpw=\(Password!)"
@@ -116,7 +116,7 @@ class LoginViewController: UIViewController , UITextFieldDelegate {
         if(Login==true){
             // 內存
             
-            let request = NSMutableURLRequest(url : NSURL(string: "http://10.133.200.109/userlogin.php")! as URL)
+            let request = NSMutableURLRequest(url : NSURL(string: "http://120.126.145.118/PM/userlogin.php")! as URL)
             request.httpMethod = "POST"
             
             //let postString = "IOS_user=\(Email!)&IOS_userpw=\(Password!)"
@@ -163,21 +163,7 @@ class LoginViewController: UIViewController , UITextFieldDelegate {
 
             
             
-            
-            UserDefaults.standard.set( true, forKey: "LoginNow")
-            UserDefaults.standard.set( Email , forKey: "UserEmail")
-            let userName = "林柏榆"
-            UserDefaults.standard.set( userName , forKey: "UserName")
-            let userSex = "男"
-            UserDefaults.standard.set( userSex , forKey: "ＵserSex")
-            let userBirthday = "1993/9/6"
-            UserDefaults.standard.set( userBirthday , forKey: "UserBirth")
-            let userHeight = 169.9
-            UserDefaults.standard.set( userHeight , forKey: "UserHeight")
-            let userWeight = 60.1
-            UserDefaults.standard.set( userWeight , forKey: "UserWeight")
-            
-            self.dismiss(animated: true, completion: nil)
+           
         }
 
     }
