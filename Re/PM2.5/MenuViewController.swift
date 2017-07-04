@@ -91,36 +91,174 @@ class MenuViewController: UIViewController  {
         let userSex = UserDefaults.standard.value(forKey: "ＵserSex")!
         let userHeight = UserDefaults.standard.value(forKey: "UserHeight")!
         let userWeight = UserDefaults.standard.value(forKey: "UserWeight")!
+        let userphone = UserDefaults.standard.value(forKey: "UserPhone")!
             
         self.SexLabel.text = String(describing: userSex)
         self.BirthLabel.text = String(describing: userBirthday)
         self.HeightLabel.text = String(describing: userHeight)
         self.WeightLabel.text = String(describing: userWeight)
-        self.PhoneLabel.text = "09XXXXXXXX"
-            
+        self.PhoneLabel.text = String(describing: userphone)
         self.NameLabel.text = String(describing: userName)
         self.EmailLabel.text = String(describing: userEmail)
         
         }
     }
 
-    /*
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (sectionData[section]?.count)!
+   
+    @IBAction func update_name(_ sender: Any) {
+        let Alert: UIAlertController = UIAlertController(title: "名字更改", message: "請輸入要更改的名稱" , preferredStyle: .alert)
+        
+        Alert.addTextField{ (textField) in
+            textField.placeholder = "名字"
+        }
+        
+        let cancelaction = UIAlertAction(title: "取消", style: .cancel,handler: nil)
+        Alert.addAction(cancelaction)
+        let okaction = UIAlertAction(title: "確認", style: UIAlertActionStyle.default,handler: {action in self.update_info(obj: "name", input: (Alert.textFields?.first?.text)!)})
+        Alert.addAction(okaction)
+        self.present(Alert , animated: true, completion: nil)
     }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section]
-    }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        cell!.textLabel?.text = sectionData[indexPath.section]![indexPath.row]
-        return cell!
-    }
-    */
     
+    @IBAction func update_password(_ sender: Any) {
+        let Alert: UIAlertController = UIAlertController(title: "密碼更改", message: "請輸入要更改的密碼" , preferredStyle: .alert)
+        
+        Alert.addTextField{ (textField) in
+            textField.placeholder = "新密碼"
+            textField.isSecureTextEntry = true
+        }
+        Alert.addTextField{ (textField) in
+            textField.placeholder = "確認密碼"
+            textField.isSecureTextEntry = true
+        }
+        let cancelaction = UIAlertAction(title: "取消", style: .cancel,handler: nil)
+        Alert.addAction(cancelaction)
+        let okaction = UIAlertAction(title: "確認", style: UIAlertActionStyle.default,handler: {action in self.update_info(obj: "password", input: (Alert.textFields?.first?.text)!+":"+(Alert.textFields?.last?.text)!)})
+        Alert.addAction(okaction)
+        self.present(Alert , animated: true, completion: nil)
+
+    }
+    
+    @IBAction func update_height(_ sender: Any) {
+        let Alert: UIAlertController = UIAlertController(title: "身高更改", message: "請輸入要更改的身高" , preferredStyle: .alert)
+        
+        Alert.addTextField{ (textField) in
+            textField.placeholder = "身高"
+        }
+        
+        let cancelaction = UIAlertAction(title: "取消", style: .cancel,handler: nil)
+        Alert.addAction(cancelaction)
+        let okaction = UIAlertAction(title: "確認", style: UIAlertActionStyle.default,handler: {action in self.update_info(obj: "height", input: (Alert.textFields?.first?.text)!)})
+        Alert.addAction(okaction)
+        self.present(Alert , animated: true, completion: nil)
+
+    }
+    
+    @IBAction func update_weight(_ sender: Any) {
+        let Alert: UIAlertController = UIAlertController(title: "體重更改", message: "請輸入要更改的體重" , preferredStyle: .alert)
+        
+        Alert.addTextField{ (textField) in
+            textField.placeholder = "體重"
+        }
+        
+        let cancelaction = UIAlertAction(title: "取消", style: .cancel,handler: nil)
+        Alert.addAction(cancelaction)
+        let okaction = UIAlertAction(title: "確認", style: UIAlertActionStyle.default,handler: {action in self.update_info(obj: "weight", input: (Alert.textFields?.first?.text)!)})
+        Alert.addAction(okaction)
+        self.present(Alert , animated: true, completion: nil)
+    }
+    
+    @IBAction func update_phone(_ sender: Any) {
+        let Alert: UIAlertController = UIAlertController(title: "電話更改", message: "請輸入要更改的電話" , preferredStyle: .alert)
+        
+        Alert.addTextField{ (textField) in
+            textField.placeholder = "電話"
+        }
+        
+        let cancelaction = UIAlertAction(title: "取消", style: .cancel,handler: nil)
+        Alert.addAction(cancelaction)
+        let okaction = UIAlertAction(title: "確認", style: UIAlertActionStyle.default,handler: {action in self.update_info(obj: "phone", input: (Alert.textFields?.first?.text)!)})
+        Alert.addAction(okaction)
+        self.present(Alert , animated: true, completion: nil)
+    }
+    
+    private func update_info( obj : String , input : String){
+        let userEmail = UserDefaults.standard.value(forKey: "UserEmail")!
+       
+        let request = NSMutableURLRequest(url : NSURL(string: "http://120.126.145.118/PM/update.php")! as URL)
+        request.httpMethod = "POST"
+        
+        var postString = ""
+        if(obj == "name"){
+            postString = "Email=\(userEmail)&realname=\(input)"
+        }else if(obj == "height"){
+            postString = "Email=\(userEmail)&height=\(input)"
+        }else if(obj == "weight"){
+            postString = "Email=\(userEmail)&weight=\(input)"
+        }else if(obj == "phone"){
+            postString = "Email=\(userEmail)&phone=\(input)"
+        }else if(obj == "password"){
+            let password1 = input.components(separatedBy: ":")[0]
+            let password2 = input.components(separatedBy: ":")[1]
+            if(password1 != password2){
+                let Alert: UIAlertController = UIAlertController(title: "更改失敗", message: "密碼有誤" , preferredStyle: .alert)
+                let action = UIAlertAction(title: "確認", style: UIAlertActionStyle.default,handler: {action in self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)})
+                Alert.addAction(action)
+                self.present(Alert , animated: true, completion: nil)
+            }else{
+                postString = "Email=\(userEmail)&password=\(password1)"
+                
+            }
+        }
+        
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = URLSession.shared.dataTask(with: request as URLRequest){
+            data , response , error in
+            
+            if error != nil{
+                print("error=\(String(describing: error))")
+            }
+            print("response =\(String(describing: response))")
+            
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            print(String(describing: responseString))
+            
+            DispatchQueue.main.async(){
+                
+                if( String(describing: responseString)=="Optional(true)" && obj != "password"){
+                    self.updateLabel(obj : obj , input : input)
+                }else if(String(describing: responseString)=="Optional(true)"){
+                    let Alert: UIAlertController = UIAlertController(title: "成功", message: "密碼更改成功" , preferredStyle: .alert)
+                    let action = UIAlertAction(title: "確認", style: UIAlertActionStyle.default,handler: {action in self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)})
+                    Alert.addAction(action)
+                    self.present(Alert , animated: true, completion: nil)
+
+                }
+            }
+            
+            
+        }
+        task.resume()
+
+    }
+    
+     func updateLabel(obj : String , input : String){
+        
+
+        if(obj=="name"){
+            UserDefaults.standard.set( input , forKey: "UserName")
+            self.NameLabel.text = input
+        }else if(obj == "height"){
+            UserDefaults.standard.set( input , forKey: "UserHeight")
+            self.HeightLabel.text = input
+        }else if(obj == "weight"){
+            UserDefaults.standard.set( input , forKey: "UserWeight")
+            self.WeightLabel.text = input
+        }else if(obj == "phone"){
+            UserDefaults.standard.set( input , forKey: "UserPhone")
+            self.PhoneLabel.text = input
+        }
+
+    }
     
     @IBAction func Logout(_ sender: Any) {
         UserDefaults.standard.set( false , forKey: "LoginNow")

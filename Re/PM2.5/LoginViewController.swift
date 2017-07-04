@@ -19,6 +19,11 @@ class LoginViewController: UIViewController , UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        UserDefaults.standard.set( 0.0 , forKey: "all_seconds")
+        UserDefaults.standard.set( 0 , forKey: "minutes")
+        UserDefaults.standard.set( 0 , forKey: "seconds")
+        UserDefaults.standard.set( 0 , forKey: "hours")
+        UserDefaults.standard.set( 0.0 , forKey: "distance")
         // Do any additional setup after loading the view.
         UserEmailTextField.delegate = self
         UserPasswordTextField.delegate = self
@@ -147,7 +152,8 @@ class LoginViewController: UIViewController , UITextFieldDelegate {
                 let userHeight: String = textArr[6].components(separatedBy: ":")[1]
                 let userWeight: String = textArr[5].components(separatedBy: ":")[1]
                 let userBirthday: String = textArr[4].components(separatedBy: ":")[1]
-                
+                let phone: String = textArr[8].components(separatedBy: ":")[1]
+                    
                 UserDefaults.standard.set( true, forKey: "LoginNow")
                 UserDefaults.standard.set( Email , forKey: "UserEmail")
                 UserDefaults.standard.set( userName , forKey: "UserName")
@@ -155,7 +161,8 @@ class LoginViewController: UIViewController , UITextFieldDelegate {
                 UserDefaults.standard.set( userBirthday , forKey: "UserBirth")
                 UserDefaults.standard.set( userHeight , forKey: "UserHeight")
                 UserDefaults.standard.set( userWeight , forKey: "UserWeight")
-                
+                UserDefaults.standard.set( phone , forKey: "UserPhone")
+                    
                 self.dismiss(animated: true, completion: nil)
                 }
             })

@@ -90,36 +90,46 @@ class RegisterSecond: UIViewController , UIPickerViewDelegate, UIPickerViewDataS
         let Birth = dataPickerTxt.text
         let sex = sexTxt.text
         
-        let Email = String(describing: UserDefaults.standard.value(forKey: "NewUserName")!)
-        let Password = String( describing: UserDefaults.standard.value(forKey: "NewUserPassword")!)
+        // 判斷輸入是否有誤
+        if( Double(Height!)! > 0.0 && Double(Height!)! < 300.0 && Double(Weight!)! > 0.0 && Double(Weight!)! < 500.0){
+            
         
-        let request = NSMutableURLRequest(url : NSURL(string: "http://120.126.145.118/PM/RegisterSubmit.php")! as URL)
-        request.httpMethod = "POST"
+            let Email = String(describing: UserDefaults.standard.value(forKey: "NewUserName")!)
+            let Password = String( describing: UserDefaults.standard.value(forKey: "NewUserPassword")!)
         
-        //let postString = "IOS_user=\(Email!)&IOS_userpw=\(Password!)"
-        let postString = "Email=\(Email)&Password=\(Password)&realname=\(RealName!)&birthday=\(Birth!)&weight=\(Weight!)&height=\(Height!)&sex=\(sex!)"
-        request.httpBody = postString.data(using: String.Encoding.utf8)
-        let task = URLSession.shared.dataTask(with: request as URLRequest){
+            let request = NSMutableURLRequest(url : NSURL(string: "http://120.126.145.118/PM/RegisterSubmit.php")! as URL)
+            request.httpMethod = "POST"
+        
+            let postString = "Email=\(Email)&Password=\(Password)&realname=\(RealName!)&birthday=\(Birth!)&weight=\(Weight!)&height=\(Height!)&sex=\(sex!)"
+            request.httpBody = postString.data(using: String.Encoding.utf8)
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
             data , response , error in
             
-            if error != nil{
-                print("error=\(String(describing: error))")
+                if error != nil{
+                    print("error=\(String(describing: error))")
+                }
+                print("response =\(String(describing: response))")
+            
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                print("responseString = \(String(describing: responseString))")
+            
+                DispatchQueue.main.async(){
+                    let Alert: UIAlertController = UIAlertController(title: "註冊", message: "註冊成功" , preferredStyle: .alert)
+                    let action = UIAlertAction(title: "確認", style: UIAlertActionStyle.default,handler: {action in self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)})
+                    Alert.addAction(action)
+                    self.present(Alert , animated: true, completion: nil)
+                }
+            
+            
             }
-            print("response =\(String(describing: response))")
-            
-            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            print("responseString = \(String(describing: responseString))")
-            
-            DispatchQueue.main.async(){
-                let Alert: UIAlertController = UIAlertController(title: "註冊", message: "註冊成功" , preferredStyle: .alert)
-                let action = UIAlertAction(title: "確認", style: UIAlertActionStyle.default,handler: {action in self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)})
-                Alert.addAction(action)
-                self.present(Alert , animated: true, completion: nil)
-            }
-            
-            
+            task.resume()
         }
-        task.resume()
+        else{
+            let Alert: UIAlertController = UIAlertController(title: "輸入有誤", message: "請檢查輸入" , preferredStyle: .alert)
+            let action = UIAlertAction(title: "確認", style: UIAlertActionStyle.default,handler: nil)
+            Alert.addAction(action)
+            self.present(Alert , animated: true, completion: nil)
+        }
     }
     
     

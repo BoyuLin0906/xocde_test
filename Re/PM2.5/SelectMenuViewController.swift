@@ -18,12 +18,12 @@ class SelectMenuViewController: UIViewController , CLLocationManagerDelegate {
     var long : Float = 0.0
     
     //時間
-    var seconds = 0
-    var minutes = 0
-    var hours = 0
-    var all_seconds = 0.0
+    var seconds : Int?
+    var minutes : Int?
+    var hours : Int?
+    var all_seconds : Double?
     var countPosition = 0
-    var distance = 0.0
+    var distance : Double?
     var pastLocation = CLLocationCoordinate2DMake(CLLocationDegrees(0.0), CLLocationDegrees(0.0))
     
     var timer = Timer()
@@ -42,7 +42,8 @@ class SelectMenuViewController: UIViewController , CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+       
+        // menu
         if revealViewController() != nil{
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -50,6 +51,7 @@ class SelectMenuViewController: UIViewController , CLLocationManagerDelegate {
             self.view.addGestureRecognizer(revealViewController().panGestureRecognizer())
         }
         
+        // location
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 100
@@ -57,11 +59,56 @@ class SelectMenuViewController: UIViewController , CLLocationManagerDelegate {
         
         if (CLLocationManager.locationServicesEnabled()){
             locationManager.startUpdatingLocation()
-            print("do it!!!")
+           
         }
-
+        // timer start to stop
+      
+        
+        // before value
+        //if(isKeyPresentInUserDefaults(key: "seconds")&&isKeyPresentInUserDefaults(key: "all_seconds")&&isKeyPresentInUserDefaults(key: "minutes")&&isKeyPresentInUserDefaults(key: "hours")&&isKeyPresentInUserDefaults(key: "distance")){
+            let _all_seconds = UserDefaults.standard.value(forKey: "all_seconds")! as? Double
+            let _hours = UserDefaults.standard.value(forKey: "hours")! as? Int
+            let _minutes = UserDefaults.standard.value(forKey: "minutes")! as? Int
+            let _seconds = UserDefaults.standard.value(forKey: "seconds")! as? Int
+            let _distance = UserDefaults.standard.value(forKey: "distance")! as? Double
+        
+        if (_all_seconds == 0.0){
+            seconds = 0
+            minutes = 0
+            hours = 0
+            all_seconds = 0.0
+            distance = 0.0
+        }else{
+            let avgspeed =  String(format: "%.4f", _distance! / ( _all_seconds! / 3600))
+            let userWeight = UserDefaults.standard.value(forKey: "UserWeight")!
+            let weight = Double(String(describing: userWeight))
+            let cal =  String(format: "%.4f", (weight! * _distance! * 1.036))
+            // label
+            timeLabel.text = "\(_hours!) 時 \(_minutes!) 分 \(_seconds!) 秒"
+            avgSpeedLabel.text = "\(avgspeed) 公里/時"
+            KcalLabel.text = "\(cal) 卡路里"
+            let dis = String(format: "%.4f",_distance!)
+            distanceLabel.text = "\(dis) 公里"
+            
+            seconds = _seconds
+            minutes = _minutes
+            hours = _hours
+            all_seconds = _all_seconds
+            distance = _distance
+        }
+        
+        
+       
+        //}
         
         // Do any additional setup after loading the view.
+    }
+    
+    
+   
+
+    func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
@@ -95,10 +142,11 @@ class SelectMenuViewController: UIViewController , CLLocationManagerDelegate {
         if(countPosition != 1){
             let nowLocation = CLLocationCoordinate2DMake(CLLocationDegrees(lat), CLLocationDegrees(long))
             let d = GMS_Distance(pointA: nowLocation,pointB: self.pastLocation)
-            distance = distance + d
-            let dis = String(format: "%.4f",distance)
+            distance = distance! + d
+            let dis = String(format: "%.4f",distance!)
             distanceLabel.text = "\(dis) 公里"
-            print(distance)
+            print(distance!)
+            UserDefaults.standard.set( distance , forKey: "distance")
         }
         self.pastLocation = CLLocationCoordinate2DMake(CLLocationDegrees(lat), CLLocationDegrees(long))
         
@@ -122,30 +170,43 @@ class SelectMenuViewController: UIViewController , CLLocationManagerDelegate {
     }
     
     func updateTimer(){
-        seconds += 1
-        all_seconds += 1
-        if(seconds==60){
-            seconds -= 60
-            minutes += 1
+        seconds! += 1
+        all_seconds! += 1
+        if(seconds!==60){
+            seconds! -= 60
+            minutes! += 1
         }
-        if (minutes==60){
-            seconds -= 60
-            hours += 1
+        if (minutes!==60){
+            seconds! -= 60
+            hours! += 1
         }
-        let avgspeed =  String(format: "%.4f",distance / (all_seconds / 3600))
+        let avgspeed =  String(format: "%.4f",distance! / (all_seconds! / 3600))
         let userWeight = UserDefaults.standard.value(forKey: "UserWeight")!
         let weight = Double(String(describing: userWeight))
-        let cal =  String(format: "%.4f", (weight! * distance * 1.036))
-        timeLabel.text = "\(hours) 時 \(minutes) 分 \(seconds) 秒"
+        let cal =  String(format: "%.4f", (weight! * distance! * 1.036))
+        // label
+        timeLabel.text = "\(hours!) 時 \(minutes!) 分 \(seconds!) 秒"
         avgSpeedLabel.text = "\(avgspeed) 公里/時"
         KcalLabel.text = "\(cal) 卡路里"
-    }
+        // save
+        UserDefaults.standard.set( all_seconds , forKey: "all_seconds")
+        UserDefaults.standard.set( minutes , forKey: "minutes")
+        UserDefaults.standard.set( seconds , forKey: "seconds")
+        UserDefaults.standard.set( hours , forKey: "hours")
+
+          }
     // stop the timer
     @IBAction func StopButton(_ sender: Any) {
+         if(timerIsOn){
+            stopTimer()
+        }
+    }
+    
+    func stopTimer(){
         timer.invalidate()
         GPStimer.invalidate()
+        GPSLocationTimer.invalidate()
         timerIsOn = false
-
     }
     // init the all things
     @IBAction func clearButton(_ sender: Any) {
@@ -175,10 +236,10 @@ class SelectMenuViewController: UIViewController , CLLocationManagerDelegate {
         if(!timerIsOn){
             
             let userEmail = UserDefaults.standard.value(forKey: "UserEmail")!
-            let avgspeed =  distance / (all_seconds / 3600)
+            let avgspeed =  distance! / (all_seconds! / 3600)
             let userWeight = UserDefaults.standard.value(forKey: "UserWeight")!
             let weight = Double(String(describing: userWeight))
-            let cal =  (weight! * distance * 1.036)
+            let cal =  (weight! * distance! * 1.036)
 
             
             
@@ -186,7 +247,7 @@ class SelectMenuViewController: UIViewController , CLLocationManagerDelegate {
             request.httpMethod = "POST"
             
             //let postString = "IOS_user=\(Email!)&IOS_userpw=\(Password!)"
-            let postString = "Email=\(userEmail)&Time=\(all_seconds)&distance=\(distance)&speed=\(avgspeed)&cal=\(cal)"
+            let postString = "Email=\(userEmail)&Time=\(all_seconds!)&distance=\(distance!)&speed=\(avgspeed)&cal=\(cal)"
             
             request.httpBody = postString.data(using: String.Encoding.utf8)
             let task = URLSession.shared.dataTask(with: request as URLRequest){
@@ -223,4 +284,9 @@ class SelectMenuViewController: UIViewController , CLLocationManagerDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopTimer()
+    }
+       
 }
