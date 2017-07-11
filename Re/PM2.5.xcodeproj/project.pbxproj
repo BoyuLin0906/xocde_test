@@ -27,6 +27,8 @@
 		0FE6B8171EC4459E00AF9764 /* RegisterStepOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE6B8161EC4459E00AF9764 /* RegisterStepOneViewController.swift */; };
 		6652A28ABB2518B5217BEA99 /* Pods_PM2_5Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71458817497ECC3D71D56E7 /* Pods_PM2_5Tests.framework */; };
 		6B1911BD1F0B3A5000E6C20B /* helpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1911BC1F0B3A5000E6C20B /* helpViewController.swift */; };
+		6B1912071F0BB32800E6C20B /* app_watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6B1911E91F0BB32800E6C20B /* app_watch.app */; };
+		6B56658D1F0D0FDA006A1576 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B56658C1F0D0FDA006A1576 /* HealthKit.framework */; };
 		6BDB34C31F0793DB00817153 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDB34C21F0793DB00817153 /* SWRevealViewController.m */; };
 		958419CEEF30DF5F7E334B05 /* Pods_PM2_5.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72C7726572431475E9F6DBA /* Pods_PM2_5.framework */; };
 		B7BF8C3A8BFA6CAE5706A164 /* Pods_PM2_5UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3989AFC004D2F4872474D7DA /* Pods_PM2_5UITests.framework */; };
@@ -47,7 +49,45 @@
 			remoteGlobalIDString = 0FE6B7D41EBF47EB00AF9764;
 			remoteInfo = PM2.5;
 		};
+		6B1911F71F0BB32800E6C20B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0FE6B7CD1EBF47EB00AF9764 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6B1911F41F0BB32800E6C20B;
+			remoteInfo = "app_watch Extension";
+		};
+		6B1912051F0BB32800E6C20B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0FE6B7CD1EBF47EB00AF9764 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6B1911E81F0BB32800E6C20B;
+			remoteInfo = app_watch;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6B19120B1F0BB32800E6C20B /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6B19120F1F0BB32800E6C20B /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				6B1912071F0BB32800E6C20B /* app_watch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0F04C0CE1EC4A05200EEEEEC /* SelectMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMenuViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +120,9 @@
 		3BFE01743AE030B04D6ED183 /* Pods-PM2.5.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PM2.5.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PM2.5/Pods-PM2.5.debug.xcconfig"; sourceTree = "<group>"; };
 		6A61AE1462B153D1BAA72A76 /* Pods-PM2.5Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PM2.5Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PM2.5Tests/Pods-PM2.5Tests.release.xcconfig"; sourceTree = "<group>"; };
 		6B1911BC1F0B3A5000E6C20B /* helpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = helpViewController.swift; sourceTree = "<group>"; };
+		6B1911E91F0BB32800E6C20B /* app_watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app_watch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B1911F51F0BB32800E6C20B /* app_watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "app_watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B56658C1F0D0FDA006A1576 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		6BDB34C11F0793DB00817153 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = SOURCE_ROOT; };
 		6BDB34C21F0793DB00817153 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = SOURCE_ROOT; };
 		A864F4825F1653B89DC2972A /* Pods-PM2.5UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PM2.5UITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PM2.5UITests/Pods-PM2.5UITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -96,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				958419CEEF30DF5F7E334B05 /* Pods_PM2_5.framework in Frameworks */,
+				6B56658D1F0D0FDA006A1576 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +156,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7BF8C3A8BFA6CAE5706A164 /* Pods_PM2_5UITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6B1911F21F0BB32800E6C20B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +188,8 @@
 				0FE6B7D51EBF47EB00AF9764 /* PM2.5.app */,
 				0FE6B7E91EBF47EC00AF9764 /* PM2.5Tests.xctest */,
 				0FE6B7F41EBF47EC00AF9764 /* PM2.5UITests.xctest */,
+				6B1911E91F0BB32800E6C20B /* app_watch.app */,
+				6B1911F51F0BB32800E6C20B /* app_watch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -203,6 +256,7 @@
 		6CF365364EF19BA82A6694E3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6B56658C1F0D0FDA006A1576 /* HealthKit.framework */,
 				E72C7726572431475E9F6DBA /* Pods_PM2_5.framework */,
 				E71458817497ECC3D71D56E7 /* Pods_PM2_5Tests.framework */,
 				3989AFC004D2F4872474D7DA /* Pods_PM2_5UITests.framework */,
@@ -223,10 +277,12 @@
 				0FE6B7D31EBF47EB00AF9764 /* Resources */,
 				368CC008121E6395C94F2D2C /* [CP] Embed Pods Frameworks */,
 				BBCC8B2EB76648E1C72AE864 /* [CP] Copy Pods Resources */,
+				6B19120F1F0BB32800E6C20B /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6B1912061F0BB32800E6C20B /* PBXTargetDependency */,
 			);
 			name = PM2.5;
 			productName = PM2.5;
@@ -275,13 +331,47 @@
 			productReference = 0FE6B7F41EBF47EC00AF9764 /* PM2.5UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		6B1911E81F0BB32800E6C20B /* app_watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6B19120C1F0BB32800E6C20B /* Build configuration list for PBXNativeTarget "app_watch" */;
+			buildPhases = (
+				6B1911E71F0BB32800E6C20B /* Resources */,
+				6B19120B1F0BB32800E6C20B /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6B1911F81F0BB32800E6C20B /* PBXTargetDependency */,
+			);
+			name = app_watch;
+			productName = app_watch;
+			productReference = 6B1911E91F0BB32800E6C20B /* app_watch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		6B1911F41F0BB32800E6C20B /* app_watch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6B1912081F0BB32800E6C20B /* Build configuration list for PBXNativeTarget "app_watch Extension" */;
+			buildPhases = (
+				6B1911F11F0BB32800E6C20B /* Sources */,
+				6B1911F21F0BB32800E6C20B /* Frameworks */,
+				6B1911F31F0BB32800E6C20B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "app_watch Extension";
+			productName = "app_watch Extension";
+			productReference = 6B1911F51F0BB32800E6C20B /* app_watch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		0FE6B7CD1EBF47EB00AF9764 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = DMCL;
 				TargetAttributes = {
@@ -294,8 +384,11 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
-							com.apple.Maps.iOS = {
+							com.apple.HealthKit = {
 								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 0;
@@ -311,6 +404,16 @@
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 0FE6B7D41EBF47EB00AF9764;
+					};
+					6B1911E81F0BB32800E6C20B = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = G87RQH2XMC;
+						ProvisioningStyle = Automatic;
+					};
+					6B1911F41F0BB32800E6C20B = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = G87RQH2XMC;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -330,6 +433,8 @@
 				0FE6B7D41EBF47EB00AF9764 /* PM2.5 */,
 				0FE6B7E81EBF47EC00AF9764 /* PM2.5Tests */,
 				0FE6B7F31EBF47EC00AF9764 /* PM2.5UITests */,
+				6B1911E81F0BB32800E6C20B /* app_watch */,
+				6B1911F41F0BB32800E6C20B /* app_watch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -353,6 +458,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0FE6B7F21EBF47EC00AF9764 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6B1911E71F0BB32800E6C20B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6B1911F31F0BB32800E6C20B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -538,6 +657,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6B1911F11F0BB32800E6C20B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -550,6 +676,16 @@
 			isa = PBXTargetDependency;
 			target = 0FE6B7D41EBF47EB00AF9764 /* PM2.5 */;
 			targetProxy = 0FE6B7F51EBF47EC00AF9764 /* PBXContainerItemProxy */;
+		};
+		6B1911F81F0BB32800E6C20B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6B1911F41F0BB32800E6C20B /* app_watch Extension */;
+			targetProxy = 6B1911F71F0BB32800E6C20B /* PBXContainerItemProxy */;
+		};
+		6B1912061F0BB32800E6C20B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6B1911E81F0BB32800E6C20B /* app_watch */;
+			targetProxy = 6B1912051F0BB32800E6C20B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -670,14 +806,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PM2.5/PM2.5.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = G87RQH2XMC;
 				INFOPLIST_FILE = PM2.5/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "boyu.PM2-5";
+				PRODUCT_BUNDLE_IDENTIFIER = boyu.PM25.domain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PM2.5/PM2.5-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -692,14 +831,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PM2.5/PM2.5.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = G87RQH2XMC;
 				INFOPLIST_FILE = PM2.5/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "boyu.PM2-5";
+				PRODUCT_BUNDLE_IDENTIFIER = boyu.PM25.domain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PM2.5/PM2.5-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -765,6 +907,78 @@
 			};
 			name = Release;
 		};
+		6B1912091F0BB32800E6C20B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = G87RQH2XMC;
+				INFOPLIST_FILE = "app_watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = boyu.PM25.domain.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.2;
+			};
+			name = Debug;
+		};
+		6B19120A1F0BB32800E6C20B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = G87RQH2XMC;
+				INFOPLIST_FILE = "app_watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = boyu.PM25.domain.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.2;
+			};
+			name = Release;
+		};
+		6B19120D1F0BB32800E6C20B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = G87RQH2XMC;
+				IBSC_MODULE = app_watch_Extension;
+				INFOPLIST_FILE = app_watch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = boyu.PM25.domain.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.2;
+			};
+			name = Debug;
+		};
+		6B19120E1F0BB32800E6C20B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = G87RQH2XMC;
+				IBSC_MODULE = app_watch_Extension;
+				INFOPLIST_FILE = app_watch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = boyu.PM25.domain.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -800,6 +1014,24 @@
 			buildConfigurations = (
 				0FE6B8041EBF47EC00AF9764 /* Debug */,
 				0FE6B8051EBF47EC00AF9764 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6B1912081F0BB32800E6C20B /* Build configuration list for PBXNativeTarget "app_watch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B1912091F0BB32800E6C20B /* Debug */,
+				6B19120A1F0BB32800E6C20B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6B19120C1F0BB32800E6C20B /* Build configuration list for PBXNativeTarget "app_watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B19120D1F0BB32800E6C20B /* Debug */,
+				6B19120E1F0BB32800E6C20B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

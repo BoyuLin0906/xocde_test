@@ -8,14 +8,18 @@
 
 import UIKit
 import CoreLocation
-
+import HealthKit
 
 class SecondSelectViewController: UIViewController , CLLocationManagerDelegate {
     
     var locationManager : CLLocationManager! = CLLocationManager()
     var lat = 0.0
     var long = 0.0
-    var count = 0
+    var pm = 0
+    var inhalation = 0.0
+    var IsTestOn = false
+    
+    let health = HKHealthStore()
     @IBOutlet weak var arrow1: UIImageView!
     @IBOutlet weak var arrow2: UIImageView!
     @IBOutlet weak var arrow3: UIImageView!
@@ -36,6 +40,7 @@ class SecondSelectViewController: UIViewController , CLLocationManagerDelegate {
     @IBOutlet weak var specialTitle: UILabel!
     
     @IBOutlet weak var FaceImage: UIImageView!
+    @IBOutlet weak var inhalationLabel: UILabel!
     
     @IBOutlet var menuButton: UIBarButtonItem!
     override func viewDidLoad() {
@@ -53,9 +58,66 @@ class SecondSelectViewController: UIViewController , CLLocationManagerDelegate {
         locationManager.distanceFilter = 100
         locationManager.requestWhenInUseAuthorization()
         
+        if HKHealthStore.isHealthDataAvailable(){
+            
+            let readTypes = self.dataTypesToRead()
+            let shareTypes = self.dataTypesToShare()
+            health.requestAuthorization(toShare: shareTypes, read: readTypes , completion : { (success,error) in
+                if success {
+                    self.getHeartRate(completion: { (results) in
+                        if let results = results {
+                            let unit = HKUnit.count().unitDivided(by: .minute())
+                            var value: Double
+                            
+                            for p in results as! [HKQuantitySample] {
+                                value = p.quantity.doubleValue(for: unit)
+                                print ("心跳為: \(value)")
+                                self.inhalationLabel.text = "心跳為: \(value)"
+                            }
+                        }
+                    })
+                }else{
+                    print ("Error!!")
+                }
+            })
+        }
+ 
         
     }
+    
+    
+    func dataTypesToRead() -> Set< HKObjectType >? {
+        var set = Set<HKObjectType>()
+        set.insert(HKQuantityType.quantityType(forIdentifier: .heartRate)!)
+        
+        return set
+    }
+    
+    func dataTypesToShare() -> Set< HKSampleType >? {
+        var set = Set<HKSampleType>()
+        set.insert(HKQuantityType.quantityType(forIdentifier: .heartRate)!)
+        
+        return set
+    }
+    
+    func getHeartRate(completion: @escaping (_ result: [HKSample]?) -> Void){
+        let type = HKQuantityType.quantityType(forIdentifier: .heartRate)
+        let sort = NSSortDescriptor(key: HKSampleSortIdentifierStartDate , ascending: false)
+        
+        let query = HKSampleQuery(sampleType: type!,
+                                  predicate: nil,
+                                  limit: HKObjectQueryNoLimit,
+                                  sortDescriptors: [sort]){
+                                    (query, results , error) in
+                                    if error == nil{
+                                        completion(results)
+                                    }
+                                    
+        }
+        health.execute(query)
+    }
 
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
         let curr:CLLocation = locations.last!
         print("latitude : \(curr.coordinate.latitude)")
@@ -66,9 +128,15 @@ class SecondSelectViewController: UIViewController , CLLocationManagerDelegate {
     }
     
     
+    @IBAction func HeartRateBtn(_ sender: Any) {
+        
+    }
+    
+    
+    
     @IBAction func runBtn(_ sender: Any) {
         
-        
+        IsTestOn = true
         if (CLLocationManager.locationServicesEnabled()){
             locationManager.startUpdatingLocation()
             print("get lat and long")
@@ -146,6 +214,7 @@ class SecondSelectViewController: UIViewController , CLLocationManagerDelegate {
 
     
     func SetupAll(pm_value : Int){
+        pm = pm_value
         var dir = 0
         if(pm_value <= 11){
             dir = 1
@@ -282,6 +351,46 @@ class SecondSelectViewController: UIViewController , CLLocationManagerDelegate {
     func iamgedisapper(arrow : UIImageView){
         UIView.animate(withDuration: 0.5, animations: {arrow.alpha = 0},completion : nil)
     }
+    
+    @IBAction func recordBtn(_ sender: Any) {
+        if (IsTestOn) {
+            
+            let userEmail = UserDefaults.standard.value(forKey: "UserEmail")!
+            
+            
+            let request = NSMutableURLRequest(url : NSURL(string: "http://120.126.145.118/PM/onhalation_record.php")! as URL)
+            request.httpMethod = "POST"
+            
+            //let postString = "IOS_user=\(Email!)&IOS_userpw=\(Password!)"
+            let postString = "Email=\(userEmail)&lat=\(lat)&long=\(long)&pm=\(pm)&inhalation=\(inhalation)"
+            
+            request.httpBody = postString.data(using: String.Encoding.utf8)
+            let task = URLSession.shared.dataTask(with: request as URLRequest){
+                data , response , error in
+                
+                if error != nil{
+                    print("error=\(String(describing: error))")
+                }
+                print("response =\(String(describing: response))")
+                
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                print("responseString = \(String(describing: responseString))")
+                
+                DispatchQueue.main.async(){
+                    let Alert: UIAlertController = UIAlertController(title: "紀錄", message: "紀錄成功" , preferredStyle: .alert)
+                    let action = UIAlertAction(title: "確認", style: UIAlertActionStyle.default,handler: {action in print("OK")})
+                    Alert.addAction(action)
+                    self.present(Alert , animated: true, completion: nil)
+                }
+                
+                
+            }
+            task.resume()
+            
+        }
+
+    }
+    
     
     @IBAction func personality(_ sender: Any) {
         dismiss(animated: true, completion: nil)
